@@ -3,14 +3,14 @@
 {% set number = GIT_DESCRIBE_NUMBER %}
 
 package:
-  name: karabor-pkg
+  name: melon-ex
   version: {{ version }}
 
 build:
   number: {{ number }}
 
 about:
-  home: https://github.com/lambda-search/karabor
+  home: https://github.com/gottingen/melon-example
   license: Apache License 2
   license_family: APACHE
   license_file: LICENSE
@@ -20,13 +20,11 @@ source:
   git_url: ../
 
 outputs:
-  - name: karabor
+  - name: melon_ex
     script: bld.sh   # [not win]
     script: bld.bat  # [win]
     build:
       #   string: "h{{ PKG_HASH }}_{{ number }}"
-      run_exports:
-        - {{ pin_compatible('karabor', exact=True) }}
     requirements:
       build:
         - clang # [osx]
