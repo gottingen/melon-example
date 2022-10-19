@@ -1,0 +1,10 @@
+name: melon-example-dev
+channels:
+  - conda-forge
+  - defaults
+  - mgottingen
+dependencies:
+  - gcc =8.5 # [linux]
+  - gxx =8.5 # [linux]
+  - sysroot_linux-64=2.17 # [linux]
+  - melon

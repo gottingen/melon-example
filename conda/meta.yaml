@@ -1,0 +1,77 @@
+
+{% set version = environ.get('GIT_DESCRIBE_TAG').lstrip('v') %}
+{% set number = GIT_DESCRIBE_NUMBER %}
+
+package:
+  name: karabor-pkg
+  version: {{ version }}
+
+build:
+  number: {{ number }}
+
+about:
+  home: https://github.com/lambda-search/karabor
+  license: Apache License 2
+  license_family: APACHE
+  license_file: LICENSE
+  summary: A server based on faiss serving for vector search
+
+source:
+  git_url: ../
+
+outputs:
+  - name: karabor
+    script: bld.sh   # [not win]
+    script: bld.bat  # [win]
+    build:
+      #   string: "h{{ PKG_HASH }}_{{ number }}"
+      run_exports:
+        - {{ pin_compatible('karabor', exact=True) }}
+    requirements:
+      build:
+        - clang # [osx]
+        - clangxx #   [osx]
+        - gcc =8.5 # [linux]
+        - gxx =8.5 # [linux]
+        - sysroot_linux-64=2.17 # [linux]
+        - make
+        - cmake
+        - gflags =2.2.2
+        - leveldb =1.22
+        - protobuf =3.12.4 # includes Protobuf compiler, C++ headers, Python libraries
+        - openssl =1.1.1
+        - zlib
+        - gperftools=2.9.1
+        - melon =0.2.71
+        - boost =1.75.0
+      host:
+        - clang # [osx]
+        - clangxx #   [osx]
+        - gcc =8.5 # [linux]
+        - gxx =8.5 # [linux]
+        - sysroot_linux-64=2.17 # [linux]
+        - gflags =2.2.2
+        - leveldb =1.22
+        - protobuf =3.12.4 # includes Protobuf compiler, C++ headers, Python libraries
+        - openssl =1.1.1
+        - zlib
+        - gperftools=2.9.1
+        - melon
+      run:
+        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.15") }}  # [osx and x86_64]
+        - clang # [osx]
+        - clangxx #   [osx]
+        - gcc =8.5 # [linux]
+        - gxx =8.5 # [linux]
+        - sysroot_linux-64=2.17 # [linux]
+        - gflags =2.2.2
+        - leveldb =1.22
+        - protobuf =3.12.4 # includes Protobuf compiler, C++ headers, Python libraries
+        - openssl =1.1.1
+        - zlib
+        - gperftools=2.9.1
+        - melon
+    test:
+      commands:
+      #  - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+      #  - conda inspect objects -p $PREFIX $PKG_NAME   # [osx]

@@ -1,0 +1,9 @@
+name:  melon-example-dev
+channels:
+  - conda-forge
+  - defaults
+  - mgottingen
+dependencies:
+  - clang # [osx]
+  - clangxx #   [osx]
+  - melon
